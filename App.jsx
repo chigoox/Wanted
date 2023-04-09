@@ -4,12 +4,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from '@expo/vector-icons/Ionicons';
-
 import WelcomePage from './Screens/WelcomePage'
-
-
-
-
+import { Platform } from 'react-native';
+import tw from 'twrnc';
 
 const Tab = createBottomTabNavigator();
 function HomeScreen() {
@@ -38,7 +35,7 @@ export default function App() {
 
 function Icons(props) {
   return (
-    <View className={'mx-auto h-20'}>
+    <View style={tw``}>
       <Ionicons name={props.name} size={32} color={'white'} />
     </View>
   )
@@ -48,7 +45,7 @@ function Icons(props) {
 
 function MyTabBar({ state, descriptors, navigation }) {
   return (
-    <View className={'absolute bottom-0 bg-slate-100 h-20 w-full p-1 flex flex-row justify-around rounded-t-[40rem]'} >
+    <View style={tw`absolute bottom-0  h-20 w-full p-1 flex bg-[#7E7F9A] flex-row justify-around rounded-t-[40rem]`} >
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
         const label =
@@ -80,7 +77,7 @@ function MyTabBar({ state, descriptors, navigation }) {
           });
         };
 
-        const bg = isFocused ? "bg-pink-300" : "bg-pink-200"
+        const bg = isFocused ? "bg-[#272838]" : "bg-[#7E7F9A]"
 
         return (
 
@@ -92,7 +89,7 @@ function MyTabBar({ state, descriptors, navigation }) {
             onPress={onPress}
             onLongPress={onLongPress}
             key={label}
-            className={`${bg} rounded-full flex h-14 w-14 hover:bottom-10 p-2`}
+            style={tw`${bg} rounded-full flex justify-center items-center h-14 w-14 hover:bottom-10`}
           >
             <Icons key={label} name={label == 'Shop' ? "pricetag" : label == 'About' ? "information-circle" : label == 'Appointment' ? 'today' : "cart"} />
 

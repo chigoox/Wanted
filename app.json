@@ -4,11 +4,12 @@
       [
         "@stripe/stripe-react-native",
         {
-          "merchantIdentifier": ["merchant.ed5"],
+          "merchantIdentifier": [
+            "merchant.ed5"
+          ],
           "enableGooglePay": true
         }
       ]
-      
     ],
     "name": "Wanted",
     "slug": "Wanted",
@@ -44,7 +45,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "7cb50a45-82cf-4c41-b2ae-64e6ba7a6ed3"
+        "projectId": "149a3ca7-4638-4b0d-81cd-fe9e90b380df"
       }
     }
   }

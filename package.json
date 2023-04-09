@@ -26,7 +26,6 @@
     "react-dom": "18.1.0",
     "react-native": "0.70.5",
     "react-native-bouncy-checkbox": "^3.0.6",
-    "react-native-calendars": "^1.1293.0",
     "react-native-dotenv": "^3.4.7",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-mail": "^6.1.1",
@@ -38,6 +37,7 @@
     "react-native-web": "~0.18.9",
     "sentry-expo": "~6.0.0",
     "stripe": "^11.10.0",
+    "twrnc": "^3.6.0",
     "use-detect-keyboard-open": "^0.4.0",
     "uuid": "^9.0.0"
   },
