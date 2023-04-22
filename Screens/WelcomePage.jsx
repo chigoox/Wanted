@@ -78,7 +78,7 @@ export default function WelcomePage({ navigation }) {
               return (
                 <View style={tw`bg-[#${color[2]}] m-2 h-20 p-4 rounded items-center justify-between flex-row`}>
                   <Text style={tw`font-bold text-lg`}>Task</Text>
-                  <Text style={tw`font-bold text-2xl`}>2554 <Text style={tw`text-sm`}>XP</Text></Text>
+                  <Text style={tw`font-bold text-2xl`}>255 <Text style={tw`text-sm`}>XP</Text></Text>
                   <Pressable style={tw`h-12 w-12 rounded-full bg-[#${color[0]}]`}>{ }</Pressable>
 
                 </View>
