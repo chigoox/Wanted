@@ -1,9 +1,8 @@
+import React, { useEffect, useState } from 'react'
 import { ref, getDownloadURL, uploadBytesResumable, deleteObject } from "firebase/storage";
 import { collection, arrayUnion, arrayRemove, increment, deleteDoc, doc, setDoc, getDocs, getDoc, updateDoc, deleteField } from "firebase/firestore";
 import { AUTH, DATABASE, STORAGE } from '../config/Firebase';
-import React, { useEffect, useState } from 'react'
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { TabRouter } from "@react-navigation/native";
 
 
 export function handleInput5(key, value, stateSetter) {

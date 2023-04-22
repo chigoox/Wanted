@@ -1,7 +1,6 @@
-import { View, Text } from 'react-native'
+import { View, Text, Pressable } from 'react-native'
 import React from 'react'
 import Animated, { Easing, useAnimatedStyle, withTiming } from 'react-native-reanimated';
-import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 import tw from 'twrnc';
 
 

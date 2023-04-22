@@ -5,7 +5,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import WelcomePage from './Screens/WelcomePage'
-import { Platform } from 'react-native';
 import tw from 'twrnc';
 
 const Tab = createBottomTabNavigator();
