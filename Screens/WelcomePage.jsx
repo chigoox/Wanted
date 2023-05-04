@@ -1,36 +1,37 @@
 import React, { useState } from 'react'
-import { SafeAreaView, Text, View, Image, Pressable, ScrollView } from 'react-native';
+import { SafeAreaView, Text, View, Pressable, ScrollView } from 'react-native';
 import tw from "twrnc";
 import { styled } from 'nativewind';
-import Stats from '../Componets/Stats';
+import AddTask from '../Componets/TaskScreen/TaskScreen/AddTask';
+import { color } from '../MyCodes/Colors';
 
 
 
 
 export default function WelcomePage({ navigation }) {
-  const [showStats, setShowStats] = useState(false)
-  const [showLogin, setShowLogin] = useState(false)
-  const toggleShowStats = () => {
-    setShowStats(!showStats)
-
-  }
-  const toggleLogin = () => { setShowLogin(!showLogin) }
-
-
-
-
-
-  const navigate = (to) => { navigation.navigate(to) }
+  const [showAddTask, setShowAddTasks] = useState(true)
+  const toggleShowStats = () => { setShowAddTasks(!showAddTask) }
   const StyledView = styled(View)
   //"353531","ec4e20","ff9505","016fb9","000000"]
-  const color = ["353531", "ec4e20", "ff9505", "016fb9", "000000"]
-  const fakeTask = [1, 2, 3, 4]
+  const [tasks, setTasks] = useState([])
+
+  console.log(tasks)
+
+
 
 
 
   return (
     <View style={tw`bg-[#${color[4]}] h-full`}>
       <SafeAreaView>
+
+        {showAddTask && <AddTask
+          toggleShowStats={toggleShowStats}
+          setTasks={setTasks}
+
+        />}
+
+
         <StyledView style={tw`w-[390px] m-auto`}>
           <View style={tw`h-52 w-[90%] bg-[#${color[0]}] p-2 m-auto rounded`}>
             <View style={tw`bg-[#${color[4]}] relative overflow-hidden rounded-3xl w-[90%] h-12 mx-auto`}>
@@ -66,7 +67,7 @@ export default function WelcomePage({ navigation }) {
 
 
           <StyledView style={tw`flex-row justify-center p-4 gap-4`} className={`gap-4`}>
-            <Pressable style={tw`h-16 w-[80%] bg-[#016fb9] rounded-full`}>
+            <Pressable onPress={toggleShowStats} style={tw`h-16 w-[80%] bg-[#016fb9] rounded-full`}>
               <Text style={tw`font-bold text-[#${color[2]}] m-auto text-2xl`}>Add Task</Text>
 
             </Pressable>
@@ -74,9 +75,9 @@ export default function WelcomePage({ navigation }) {
           </StyledView>
 
           <ScrollView className={''} style={tw`h-89 overflow- w-full rounded bg-[#${color[0]}] m-auto`}>
-            {fakeTask.map(task => {
+            {tasks.map(task => {
               return (
-                <View style={tw`bg-[#${color[2]}] m-2 h-20 p-4 rounded items-center justify-between flex-row`}>
+                <View key={task.task} style={tw`bg-[#${color[2]}] m-2 h-20 p-4 rounded items-center justify-between flex-row`}>
                   <Text style={tw`font-bold text-lg`}>Task</Text>
                   <Text style={tw`font-bold text-2xl`}>255 <Text style={tw`text-sm`}>XP</Text></Text>
                   <Pressable style={tw`h-12 w-12 rounded-full bg-[#${color[0]}]`}>{ }</Pressable>
