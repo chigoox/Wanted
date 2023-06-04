@@ -11,13 +11,14 @@ import {VITE_GOOGLE_API_KEY} from '@env'
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: VITE_GOOGLE_API_KEY,
-  authDomain: "anointed-hands-wigs.firebaseapp.com",
-  projectId: "anointed-hands-wigs",
-  storageBucket: "anointed-hands-wigs.appspot.com",
-  messagingSenderId: "309907460540",
-  appId: "1:309907460540:web:0ec68c85b52ec9c1b85bb9",
-  measurementId: "G-T5CT9PFF4R"
+  authDomain: "wanted-8d9f1.firebaseapp.com",
+  projectId: "wanted-8d9f1",
+  storageBucket: "wanted-8d9f1.appspot.com",
+  messagingSenderId: "854628704169",
+  appId: "1:854628704169:web:4fc7df930c2b614a36eeb8",
+  measurementId: "G-7SXQ6VF3YW"
 };
+
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -26,3 +27,4 @@ const DATABASE = getFirestore(app);
 const STORAGE = getStorage(app);
 export default app
 export {AUTH, DATABASE, STORAGE}
+

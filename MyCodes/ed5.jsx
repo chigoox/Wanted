@@ -144,7 +144,7 @@ function getZipInfo(zip, set) {
         });
 }
 
-export const getRand = (max) => { return Math.floor(Math.random() * max) + 1; }
+export const getRand = (max) => { return Math.floor(Math.random() * max); }
 
 
 async function fetchProducts(setProducts) {

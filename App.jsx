@@ -4,14 +4,15 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import WelcomePage from './Screens/WelcomePage'
+import TaskPage from './Screens/TaskPage'
 import tw from 'twrnc';
+import WelcomeScreen from './Screens/WelcomeScreen';
 
 const Tab = createBottomTabNavigator();
 function HomeScreen() {
   return (
-    <Tab.Navigator screenOptions={{ headerShown: false }} initialRouteName="Home" tabBar={props => <MyTabBar {...props} />}>
-      <Tab.Screen name="Home" component={WelcomePage} />
+    <Tab.Navigator screenOptions={{ headerShown: false }} initialRouteName="Task" tabBar={props => <MyTabBar {...props} />}>
+      <Tab.Screen name="Task" component={TaskPage} />
 
     </Tab.Navigator>
   )
@@ -21,8 +22,8 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="HomeScreen">
-        <Stack.Screen name="WelcomePage" component={WelcomePage} />
+      <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="WelcomeScreen">
+        <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
 
       </Stack.Navigator>
@@ -90,7 +91,7 @@ function MyTabBar({ state, descriptors, navigation }) {
             key={label}
             style={tw`${bg} rounded-full flex justify-center items-center h-14 w-14 hover:bottom-10`}
           >
-            <Icons key={label} name={label == 'Shop' ? "pricetag" : label == 'About' ? "information-circle" : label == 'Appointment' ? 'today' : "cart"} />
+            <Icons key={label} name={label == 'Shop' ? "pricetag" : label == 'About' ? "information-circle" : label == 'Appointment' ? 'today' : "Job"} />
 
           </TouchableOpacity>
         );

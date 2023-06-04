@@ -37,6 +37,7 @@
     "react-native-web": "~0.18.9",
     "sentry-expo": "~6.0.0",
     "stripe": "^11.10.0",
+    "toastify-react-native": "^3.1.0",
     "twrnc": "^3.6.0",
     "use-detect-keyboard-open": "^0.4.0",
     "uuid": "^9.0.0"
