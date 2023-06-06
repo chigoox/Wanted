@@ -6,6 +6,7 @@ import AddTask from '../Componets/TaskScreen/TaskScreen/AddTask';
 import { color } from '../MyCodes/Colors';
 import TaskItem from '../Componets/TaskItem';
 import UpdateTask from '../Componets/TaskScreen/TaskScreen/UpdateTask';
+import ToastManager, { Toast } from 'toastify-react-native'
 
 
 
