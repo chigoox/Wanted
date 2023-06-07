@@ -1,13 +1,13 @@
 import { View, Text, TextInput } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import tw from "twrnc";
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 
 const Input = ({ iconName, value, placeholder, name, setRegisterInfo }) => {
-
     const onChange = (text) => {
         setRegisterInfo((old) => {
+            console.log(old)
             return (
                 {
                     ...old,

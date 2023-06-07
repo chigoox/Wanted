@@ -4,16 +4,45 @@ import tw from "twrnc";
 import { color } from '../MyCodes/Colors';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Input from '../Componets/RegisterScreen/Input';
+import { getAuth, createUserWithEmailAndPassword, updateProfile, sendEmailVerification } from "firebase/auth";
+import ToastManager from 'toastify-react-native'
+import ToastMessage from '../MyCodes/Toaster'
 
 
 const RegisterPage = ({ toggleShowRegister }) => {
-    const [registerInfo, setRegisterInfo] = useState()
+
+    const RegisterOptions = ({ navigation }) => {
+        const [registerInfo, setRegisterInfo] = useState({})
+
+        const auth = getAuth();
 
 
-
-    const RegisterOptions = () => {
-        const login = (email, password) => { }
-
+        const CreateUser = (email, password) => {
+            createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    // Signed in 
+                    const user = userCredential.user;
+                    sendEmailVerification(auth.currentUser)
+                        .then(() => {
+                            updateProfile(auth.currentUser, {
+                                displayName: registerInfo.user,
+                            }).then(() => {
+                                // Profile updated!
+                                // ...
+                            }).catch((error) => {
+                                // An error occurred
+                                // ...
+                            });
+                        });
+                    navigation.navigate('HomeScreen')
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    ToastMessage(errorMessage)
+                    // ..
+                });
+        }
 
 
         return (
@@ -23,7 +52,7 @@ const RegisterPage = ({ toggleShowRegister }) => {
                 <Input setRegisterInfo={setRegisterInfo} iconName={'key'} placeholder={'password'} name={'pass1'} />
                 <Input setRegisterInfo={setRegisterInfo} iconName={'key'} placeholder={'Password '} name={'pass2'} />
                 <Input setRegisterInfo={setRegisterInfo} iconName={'mail'} placeholder={'Email'} name={'email'} />
-                <Pressable style={tw`bg-white h-14 w-3/4 rounded-full m-auto mt-4 bg-[#${color[2]}]`}>
+                <Pressable onPress={() => { CreateUser(registerInfo?.email, registerInfo?.pass1) }} style={tw`bg-white h-14 w-3/4 rounded-full m-auto mt-4 bg-[#${color[2]}]`}>
                     <Text style={tw`font-bold  text-3xl m-auto`}>Sign Up</Text>
                 </Pressable>
             </View>
@@ -35,6 +64,8 @@ const RegisterPage = ({ toggleShowRegister }) => {
 
     return (
         <View style={tw`bg-[#${color[0]}] absolute top-25 z-100 h-full w-full`}>
+            <ToastManager width={375} height={60} style={tw`bg-black top-20`} />
+
             <View style={tw`p-2 mt-12`}>
                 <RegisterOptions />
                 <Pressable onPress={toggleShowRegister} style={tw`flex-row m-auto mt-72`}>

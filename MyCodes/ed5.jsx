@@ -158,6 +158,16 @@ async function fetchProducts(setProducts) {
 
     });
 }
+const getCurrentDate = () => {
+
+    var date = new Date().getDate();
+    var month = new Date().getMonth() + 1;
+    var year = new Date().getFullYear();
+
+    return (month + '-' + date);
+    // You can turn it in to your desired format
+}
+
 async function fetchData(setUserData, user) {
     const docRef = doc(DATABASE, 'Users', `${user.email}${user.uid}`);
     const docSnap = await getDoc(docRef);
@@ -206,4 +216,4 @@ async function fetchAva(setAva, setApts) {
 
 }
 
-export { fetchDocument, deleteUserCart, deleteAdminData5, deleteUserData5, fetchAppointments, fetchProducts, fetchAva, fetchData, deleteUserData, updateuserDataArray, decreaseCartAmount, getZipInfo }
+export { getCurrentDate, fetchDocument, deleteUserCart, deleteAdminData5, deleteUserData5, fetchAppointments, fetchProducts, fetchAva, fetchData, deleteUserData, updateuserDataArray, decreaseCartAmount, getZipInfo }

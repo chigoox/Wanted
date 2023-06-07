@@ -7,12 +7,14 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import TaskPage from './Screens/TaskPage'
 import tw from 'twrnc';
 import WelcomeScreen from './Screens/WelcomeScreen';
+import DailyTasks from './Screens/DailyTasks';
 
 const Tab = createBottomTabNavigator();
 function HomeScreen() {
   return (
     <Tab.Navigator screenOptions={{ headerShown: false }} initialRouteName="Task" tabBar={props => <MyTabBar {...props} />}>
       <Tab.Screen name="Task" component={TaskPage} />
+      <Tab.Screen name='Daily' component={DailyTasks} />
 
     </Tab.Navigator>
   )
@@ -91,7 +93,7 @@ function MyTabBar({ state, descriptors, navigation }) {
             key={label}
             style={tw`${bg} rounded-full flex justify-center items-center h-14 w-14 hover:bottom-10`}
           >
-            <Icons key={label} name={label == 'Shop' ? "pricetag" : label == 'About' ? "information-circle" : label == 'Appointment' ? 'today' : "Job"} />
+            <Icons key={label} name={label == 'Shop' ? "pricetag" : label == 'About' ? "information-circle" : label == 'Daily' ? 'planet-outline' : "clipboard-outline"} />
 
           </TouchableOpacity>
         );
