@@ -1,9 +1,10 @@
 import { Pressable, TextInput, View, Text } from 'react-native'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import tw from "twrnc";
 import { styled } from 'nativewind';
 import { color } from '../../../MyCodes/Colors';
-import { handleInput5 } from '../../../MyCodes/ed5';
+import { addUserInfoToDatabase, getRand, handleInput5 } from '../../../MyCodes/ed5';
+import { LoggedInUserContext } from '../../../App';
 
 
 
@@ -11,16 +12,32 @@ const AddTask = ({ toggleShowStats, setTasks }) => {
     const StyledView = styled(View)
     const [Task, setTask] = useState()
     const [difficulty, setDifficulty] = useState()
+    const [LoggedInUser, setLoggedInUser] = useContext(LoggedInUserContext)
+    const multiplier = (difficulty == 'Easy') ? 1 : (difficulty == 'Regular') ? 5 : (difficulty == 'Hard') ? 10 : 1
+    const [goldReward, setGoldReward] = useState(getRand(multiplier >= 5 ? multiplier : multiplier + 1))
+    const [expReward, setExpReward] = useState(getRand(10) * multiplier + (3 * multiplier))
+
 
     const selectDifficulty = (name) => {
         setDifficulty({ [name]: true })
     }
 
     const AddTask = (loop) => {
-        setTasks(oldTask => {
+        addUserInfoToDatabase({
+            Task: {
+                allTasks: {
+                    [Task]: { task: Task, difficulty: Object.keys(difficulty)[0], repeate: loop ? loop : false, goldReward: goldReward, expReward: expReward }
+                }
+            },
+
+        }, LoggedInUser.uid)
+        /* setTasks(oldTask => {
             return ({ ...oldTask, [Task]: { task: Task, difficulty: Object.keys(difficulty)[0], repeate: loop ? loop : false } })
-        })
-        toggleShowStats()
+        }) */
+
+        setTimeout(() => {
+            toggleShowStats()
+        }, 250);
     }
 
     useEffect(() => { }, [])

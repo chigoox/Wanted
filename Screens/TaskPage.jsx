@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { SafeAreaView, Text, View, Pressable, ScrollView } from 'react-native';
 import tw from "twrnc";
 import { styled } from 'nativewind';
@@ -6,12 +6,15 @@ import AddTask from '../Componets/TaskScreen/TaskScreen/AddTask';
 import { color } from '../MyCodes/Colors';
 import TaskItem from '../Componets/TaskItem';
 import UpdateTask from '../Componets/TaskScreen/TaskScreen/UpdateTask';
-import ToastManager, { Toast } from 'toastify-react-native'
-
+import { useContext } from 'react';
+import { addUserInfoToDatabase, fetchDocument } from '../MyCodes/ed5'
+import { LoggedInUserContext } from '../App';
 
 
 
 export default function TaskPage({ navigation }) {
+
+
   const [showAddTask, setShowAddTasks] = useState(false)
   const toggleShowStats = () => { setShowAddTasks(!showAddTask) }
   const StyledView = styled(View)
@@ -21,20 +24,27 @@ export default function TaskPage({ navigation }) {
   const [taskToUpdated, setTaskToUpdated] = useState({})
   const [showUpdateTask, setShowUpdateTask] = useState(false)
   const toggleShowUpdateTask = () => { setShowUpdateTask(!showUpdateTask) }
+  const [LoggedInUser, setLoggedInUser] = useContext(LoggedInUserContext)
+  const [taskFromDB, setTaskFromDB] = useState({})
+  const allTasks = taskFromDB?.Task?.allTasks
 
 
 
 
+  useEffect(() => {
+    fetchDocument('Users', LoggedInUser.uid, setTaskFromDB)
+  }, [showUpdateTask, showAddTask])
   return (
     <View style={tw`bg-[#${color[4]}] h-full`}>
       <SafeAreaView>
-
         {showAddTask && <AddTask
           toggleShowStats={toggleShowStats}
           setTasks={setTasks}
 
         />}
         {showUpdateTask && <UpdateTask
+          _Tasks={tasks}
+          LoggedInUser={LoggedInUser}
           toggleShowUpdateTask={toggleShowUpdateTask}
           setTasks={setTasks}
           taskToUpdated={taskToUpdated}
@@ -54,14 +64,16 @@ export default function TaskPage({ navigation }) {
 
           </StyledView>
 
-          <StyledScrollView className={'pb-24'} style={tw`h-fit w-full rounded bg-[#${color[0]}] m-auto mb-16`}>
-            {Object.values(tasks ? tasks : []).map(task => {
+          <StyledScrollView className={'pb-24'} style={tw`w-full rounded bg-[#${color[0]}] m-auto mb-16`}>
+            {Object.values(allTasks ? allTasks : []).map(task => {
               return (
                 <TaskItem
                   key={task.task}
                   task={task.task}
                   difficulty={task.difficulty}
                   repeate={task.repeate}
+                  expReward={task.expReward}
+                  goldReward={task.goldReward}
                   setTaskToUpdated={setTaskToUpdated}
                   toggleShowUpdateTask={toggleShowUpdateTask}
                 />
@@ -83,6 +95,8 @@ export default function TaskPage({ navigation }) {
 
   )
 }
+
+
 
 
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createContext, useState } from 'react';
 import { Text, View, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -8,11 +8,17 @@ import TaskPage from './Screens/TaskPage'
 import tw from 'twrnc';
 import WelcomeScreen from './Screens/WelcomeScreen';
 import DailyTasks from './Screens/DailyTasks';
+import { ToastProvider } from 'react-native-toast-notifications'
+import { getDay } from './MyCodes/ed5';
+
+export const LoggedInUserContext = createContext({}, () => { });
 
 const Tab = createBottomTabNavigator();
 function HomeScreen() {
+
+
   return (
-    <Tab.Navigator screenOptions={{ headerShown: false }} initialRouteName="Task" tabBar={props => <MyTabBar {...props} />}>
+    <Tab.Navigator screenOptions={{ headerShown: false }} initialRouteName="Daily" tabBar={props => <MyTabBar {...props} />}>
       <Tab.Screen name="Task" component={TaskPage} />
       <Tab.Screen name='Daily' component={DailyTasks} />
 
@@ -22,14 +28,20 @@ function HomeScreen() {
 
 const Stack = createNativeStackNavigator();
 export default function App() {
+  const [LoggedInUser, setLoggedInUser] = useState('test')
   return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="WelcomeScreen">
-        <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
-        <Stack.Screen name="HomeScreen" component={HomeScreen} />
+    <ToastProvider>
+      <LoggedInUserContext.Provider value={[LoggedInUser, setLoggedInUser]}>
+        <NavigationContainer>
+          <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="WelcomeScreen">
+            <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
+            <Stack.Screen name="HomeScreen" component={HomeScreen} />
 
-      </Stack.Navigator>
-    </NavigationContainer>
+
+          </Stack.Navigator>
+        </NavigationContainer>
+      </LoggedInUserContext.Provider>
+    </ToastProvider>
   );
 }
 

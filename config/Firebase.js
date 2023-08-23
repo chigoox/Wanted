@@ -10,7 +10,7 @@ import {VITE_GOOGLE_API_KEY} from '@env'
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: VITE_GOOGLE_API_KEY,
+  apiKey: 'AIzaSyA-Px1VxH9YJz6k_n0YegFt0iedjAATOwE',
   authDomain: "wanted-8d9f1.firebaseapp.com",
   projectId: "wanted-8d9f1",
   storageBucket: "wanted-8d9f1.appspot.com",

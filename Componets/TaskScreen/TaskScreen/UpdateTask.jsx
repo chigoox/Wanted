@@ -1,33 +1,31 @@
-import { Pressable, TextInput, View, Text } from 'react-native'
+import { Pressable, TextInput, View, Text, useContext } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import tw from "twrnc";
 import { styled } from 'nativewind';
 import { color } from '../../../MyCodes/Colors';
+import { DeleteTask } from '../../../MyCodes/ed5';
 
-
-
-const UpdateTask = ({ toggleShowUpdateTask, setTasks, taskToUpdated }) => {
+const UpdateTask = ({ toggleShowUpdateTask, setTasks, taskToUpdated, LoggedInUser }) => {
     const StyledView = styled(View)
-    const [Task, setTask] = useState(taskToUpdated.task)
-    const [difficulty, setDifficulty] = useState({ [taskToUpdated.difficulty]: true })
-
+    const [Task, setTask] = useState(taskToUpdated?.task)
+    const [difficulty, setDifficulty] = useState({ [taskToUpdated?.difficulty]: true })
+    const [toUpdateDB, setToUpdateDB] = useState()
     const selectDifficulty = (name) => {
         setDifficulty({ [name]: true })
     }
-    console.log(Task)
-
     const AddTask = (loop) => {
         setTasks(oldTask => {
-            return ({ ...oldTask, [taskToUpdated.task]: { task: Task, difficulty: Object.keys(difficulty)[0], repeate: loop ? loop : false } })
+            setToUpdateDB({ ...oldTask, [taskToUpdated?.task]: { task: Task, difficulty: Object.keys(difficulty)[0], repeate: loop ? loop : false } })
+
+            return ({ ...oldTask, [taskToUpdated?.task]: { task: Task, difficulty: Object.keys(difficulty)[0], repeate: loop ? loop : false } })
         })
+        UpdateTask(LoggedInUser, toUpdateDB)
         toggleShowUpdateTask()
     }
-
     useEffect(() => { }, [])
 
     const deleteTask = () => {
         setTasks(oldTask => {
-            console.log(oldTask)
             const deleteTaskX = Object.keys(oldTask)
                 .filter(key => !key.includes(`${Task}`))
                 .reduce((obj, key) => {
@@ -35,12 +33,15 @@ const UpdateTask = ({ toggleShowUpdateTask, setTasks, taskToUpdated }) => {
                     return obj;
                 }, {});
 
-            console.log(deleteTaskX)
             return (
                 deleteTaskX
             )
         })
-        toggleShowUpdateTask()
+        DeleteTask(LoggedInUser, Task)
+        setTimeout(() => {
+            toggleShowUpdateTask()
+
+        }, 100);
     }
 
 

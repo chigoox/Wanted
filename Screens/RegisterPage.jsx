@@ -3,18 +3,18 @@ import React, { useState } from 'react'
 import tw from "twrnc";
 import { color } from '../MyCodes/Colors';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import Input from '../Componets/RegisterScreen/Input';
+import Input from '../Componets/RegisterPage/Input';
 import { getAuth, createUserWithEmailAndPassword, updateProfile, sendEmailVerification } from "firebase/auth";
-import ToastManager from 'toastify-react-native'
+//import ToastManager from 'toastify-react-native'
 import ToastMessage from '../MyCodes/Toaster'
+import { addUserInfoToDatabase, getDay } from '../MyCodes/ed5';
 
 
-const RegisterPage = ({ toggleShowRegister }) => {
-
+const RegisterPage = ({ toggleShowRegister, navigation }) => {
     const RegisterOptions = ({ navigation }) => {
         const [registerInfo, setRegisterInfo] = useState({})
-
         const auth = getAuth();
+
 
 
         const CreateUser = (email, password) => {
@@ -34,12 +34,41 @@ const RegisterPage = ({ toggleShowRegister }) => {
                                 // ...
                             });
                         });
+                    addUserInfoToDatabase({
+                        email: user.email,
+                        stats: {
+                            level: 0,
+                            jobsDone: 0,
+                            exp: 0,
+                            nextExp: 100,
+                            gold: 100
+
+                        },
+                        Task: {
+                            currentTask: {
+
+                            },
+                            completedTask: {
+
+                            },
+                            allTasks: {
+
+                            }
+                        },
+
+
+
+
+
+
+                    }, user.uid)
                     navigation.navigate('HomeScreen')
                 })
                 .catch((error) => {
                     const errorCode = error.code;
                     const errorMessage = error.message;
-                    ToastMessage(errorMessage)
+                    console.log(errorMessage)
+                    //ToastMessage(errorMessage)
                     // ..
                 });
         }
@@ -64,10 +93,10 @@ const RegisterPage = ({ toggleShowRegister }) => {
 
     return (
         <View style={tw`bg-[#${color[0]}] absolute top-25 z-100 h-full w-full`}>
-            <ToastManager width={375} height={60} style={tw`bg-black top-20`} />
+            {/*  <ToastManager width={375} height={60} style={tw`bg-black top-20`} /> */}
 
             <View style={tw`p-2 mt-12`}>
-                <RegisterOptions />
+                <RegisterOptions navigation={navigation} />
                 <Pressable onPress={toggleShowRegister} style={tw`flex-row m-auto mt-72`}>
                     <Ionicons name={'caret-back-outline'} size={32} color={'white'} />
                     <Text style={tw`font-bold text-2xl text-white`}>Back</Text>
